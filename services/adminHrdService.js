@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Employee from '../models/employeeModel.js';
 
 async function getAllAttendancesService(startDate, endDate, employeeId) {
     try {
@@ -15,4 +16,20 @@ async function getAllAttendancesService(startDate, endDate, employeeId) {
     }
 }
 
-export { getAllAttendancesService };
+async function createEmployee(name, email, position, photo, phoneNumber, password) {
+    try {
+        const employee = await Employee.create({
+            name,
+            email,
+            position,
+            photo,
+            phoneNumber,
+            password
+        });
+        return employee;
+    } catch (error) {
+        throw new Error('Failed to create employee');
+    }
+}
+
+export { getAllAttendancesService, createEmployee };
