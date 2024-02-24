@@ -1,4 +1,4 @@
-import { getAllAttendancesService, createEmployee } from '../services/adminHrdService.js';
+import { getAllAttendancesService, createEmployee, editEmployeeService } from '../services/adminHrdService.js';
 
 
 async function getAllAttendances(req, res, next) {
@@ -23,4 +23,15 @@ async function addEmployee(req, res) {
     }
 }
 
-export { getAllAttendances, addEmployee };
+async function editEmployee(req, res) {
+    const { id } = req.params;
+    const newData = req.body;
+    try {
+        const updatedEmployee = await editEmployeeService(id, newData);
+        res.status(200).json({ success: true, message: 'Employee updated', data: updatedEmployee });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+export { getAllAttendances, addEmployee, editEmployee };

@@ -32,4 +32,16 @@ async function createEmployee(name, email, position, photo, phoneNumber, passwor
     }
 }
 
-export { getAllAttendancesService, createEmployee };
+async function editEmployeeService(id, newData) {
+    try {
+        const employee = await Employee.findByPk(id);
+        if (!employee) {
+            throw new Error('Employee not found');
+        }
+        const updatedEmployee = await employee.update(newData);
+        return updatedEmployee;
+    } catch (error) {
+        throw new Error('Failed to update employee');
+    }
+}
+export { getAllAttendancesService, createEmployee, editEmployeeService };
