@@ -11,20 +11,20 @@ const Attendance = db.define('Attendance', {
         autoIncrement: true
       },  
       arrivalDate: {
-        type: DataTypes.DATEONLY // Hanya tanggal tanpa waktu
+        type: DataTypes.DATEONLY
       },
       arrivalTime: {
-        type: DataTypes.TIME // Hanya waktu tanpa tanggal
+        type: DataTypes.TIME
       },
       arrivalStatus: {
-        type: DataTypes.ENUM('Masuk', 'Pulang'), // 'Masuk' atau 'Pulang'
+        type: DataTypes.ENUM('Masuk', 'Pulang'),
         allowNull: false
       },
       departureDate: {
-        type: DataTypes.DATEONLY // Hanya tanggal tanpa waktu
+        type: DataTypes.DATEONLY
       },
       departureTime: {
-        type: DataTypes.TIME // Hanya waktu tanpa tanggal
+        type: DataTypes.TIME
       },
 }, {freezeTableName: true
 });

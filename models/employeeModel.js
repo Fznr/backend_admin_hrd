@@ -38,8 +38,6 @@ const Employee = db.define('Employee', {
 }, {freezeTableName: true
 });
 
-// Employee.hasMany(Attendance);
-
 export default Employee;
 
 (async () => {
