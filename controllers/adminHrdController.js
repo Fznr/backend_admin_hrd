@@ -1,4 +1,4 @@
-import { getAllAttendancesService, createEmployee, editEmployeeService } from '../services/adminHrdService.js';
+import { getAllAttendancesService, createEmployee, editEmployeeService, getAllEmployeesService } from '../services/adminHrdService.js';
 
 
 async function getAllAttendances(req, res, next) {
@@ -14,9 +14,10 @@ async function getAllAttendances(req, res, next) {
 }
 
 async function addEmployee(req, res) {
-    const { name, email, position, photo, phoneNumber, password } = req.body;
+    console.log('halo masuk')
+    const { name, email, position, photo, phoneNumber, password, role } = req.body;
     try {
-        const employee = await createEmployee(name, email, position, photo, phoneNumber, password);
+        const employee = await createEmployee(name, email, position, photo, phoneNumber, password, role);
         res.status(201).json({ success: true, message: 'Employee created', data: employee });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -34,4 +35,14 @@ async function editEmployee(req, res) {
     }
 }
 
-export { getAllAttendances, addEmployee, editEmployee };
+async function getAllEmployees(req, res, next) {
+    try {
+        const name = req.query.name;
+        const email = req.query.email;
+        const employees = await getAllEmployeesService(name, email);
+        res.status(200).json({ success: true, message: 'Employees fetched successfully', data: employees });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch employees', error: error.message });
+    }
+}
+export { getAllAttendances, addEmployee, editEmployee, getAllEmployees };
