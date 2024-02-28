@@ -1,6 +1,6 @@
 import { Kafka } from 'kafkajs';
+import {createLogHistory} from '../services/adminHrdService.js'
 
-// Konfigurasi Kafka
 const kafka = new Kafka({
   clientId: 'my-app',
   brokers: ['localhost:9092'],
@@ -16,7 +16,8 @@ async function startConsumer() {
   await consumer.subscribe({ topic: 'data_test' });
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-        console.log(`Received message from topic ${topic}, partition ${partition}, offset ${message.offset}: ${message.value.toString()}`);
+      console.log(`Received message from topic ${topic}, partition ${partition}, offset ${message.offset}: ${message.value.toString()}`);
+      createLogHistory(message.value.toString());
     },
   });
 }
